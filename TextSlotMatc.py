@@ -9,7 +9,7 @@ def get_menu(balance):
         4 - Exit"""
 
         print(menu_text)
-        choice = int(input("What do you want to do"))
+        choice = int(input("What do you want to do: "))
         return choice
 
 
@@ -32,13 +32,28 @@ def deposit():
 
 
 
+
 def main():
     global balance
     while True:
         choice = get_menu(balance)
 
         if choice == "1":
-              balance += deposit()
-              print("You balance is:", balance)
+            balance += deposit()
+            print("Your balance is:", balance)
 
+        elif choice == "2":
+            print("Game starts here")  # Placeholder
+
+        elif choice == "3":
+            print("Withdraw function here")  # Placeholder
+
+        elif choice == "4":
+            print("Goodbye!")
+            break
+
+        else:
+            print("Invalid option")
+
+# Start the program
 main()
