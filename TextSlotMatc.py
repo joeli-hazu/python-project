@@ -78,9 +78,6 @@ def spin():
 
     return grid
 
-Spin = spin()
-for i in Spin:
-    print(i)
 
 
 
@@ -88,7 +85,16 @@ def check_win(grid, bet, lines):
     winnings = 0
 
     for line in range(lines):
-        symboles = grid[line][0]
+        symbol = grid[line][0]
+
+        for col in range(1, COLS):
+            if grid[line][col] != symbol:
+                break
+        else:
+            winnings += bet * 5
+
+    return winnings
+    
 
 
 
@@ -108,11 +114,12 @@ def bet_lines():
                 return lines
         except ValueError:
             print("Invalid input. please enter a number")
-
+    
 
 
 def main():
     balance = 0
+    
     while True:
         choice = get_menu(balance)
 
@@ -123,6 +130,35 @@ def main():
 
         elif choice == "2":
             print("Game starts here")
+
+            lines = bet_lines()
+            bet = get_bet()
+
+            total_bet = lines * bet
+            print(f"Total bet = {total_bet}")
+
+            if total_bet > balance:
+                print("You don't have enough money!")
+                continue
+
+            grid = spin()
+
+            grid = spin()
+
+            print("\nSpinning...\n")
+            for row in grid:
+                print(" | ".join(row))
+
+            winnings = check_win(grid, bet, lines)
+
+            if winnings > 0:
+                print(f"You won €{winnings}!")
+            else:
+                print("You lost!")
+
+            balance += winnings - total_bet
+
+            print(f"New balance: €{balance}")
 
         elif choice == "3":
             print("Withdraw ---")
